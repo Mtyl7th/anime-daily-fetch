@@ -1,0 +1,6 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Plan to migrate the daily image fetcher to GitHub Actions.",
+  "updatedAt":  "2026-01-11T16:57:11.507156Z",
+  "version":  "2"
+}

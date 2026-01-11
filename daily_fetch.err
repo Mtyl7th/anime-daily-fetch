@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/linchuan/.gemini/antigravity/brain/4838b3fe-93ca-44a3-ba32-d37f4b912c9b/daily_fetch.py", line 2, in <module>
+    import requests
+ModuleNotFoundError: No module named 'requests'

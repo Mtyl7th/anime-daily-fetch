@@ -1,0 +1,28 @@
+# Daily Anime Image Agent
+
+## Goal Description
+Deploy a background agent (using macOS `launchd`) that runs every day at 10:00 AM. It will download one new anime image (JK + Over-the-knee socks) that is not already in the collection and update the gallery.
+
+## User Review Required
+- The agent will run as a user launch agent.
+- Does the user want notifications when a new image is added? (I will skip this for now to keep it simple, just silent update).
+
+## Proposed Changes
+### Scripts
+#### [NEW] [daily_fetch.py](file:///Users/linchuan/.gemini/antigravity/brain/4838b3fe-93ca-44a3-ba32-d37f4b912c9b/daily_fetch.py)
+A script that:
+1. Checks existing image IDs in the directory.
+2. Queries Safebooru for a batch of images (random page or recent).
+3. Finds the first image ID that is NOT in the directory.
+4. Downloads it.
+5. Re-runs the [generate_gallery.py](file:///Users/linchuan/.gemini/antigravity/brain/4838b3fe-93ca-44a3-ba32-d37f4b912c9b/generate_gallery.py) logic (or imports it) to update the HTML.
+
+### Configuration
+#### [NEW] [com.antigravity.dailyanime.plist](file:///Users/linchuan/.gemini/antigravity/brain/4838b3fe-93ca-44a3-ba32-d37f4b912c9b/com.antigravity.dailyanime.plist)
+A launchd configuration file to schedule `python3 daily_fetch.py` at 10:00 AM daily.
+
+## Verification Plan
+### Automated Tests
+- Run `daily_fetch.py` manually once to verify it adds exactly one image.
+- Load the plist with `launchctl load`.
+- Verify `launchctl list` shows the service.

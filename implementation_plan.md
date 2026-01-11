@@ -1,0 +1,29 @@
+# Cloud Deployment (GitHub Actions)
+
+## Goal Description
+Migrate the daily image fetcher to the cloud so the user does not need to keep their Mac open. We will use **GitHub Actions** to run the script daily and **GitHub Pages** to host the gallery.
+
+## User Review Required
+- User will need to manually create a GitHub repository and push the code.
+- User will need to enable "Read and write permissions" for Workflow actions in their GitHub repo settings.
+
+## Proposed Changes
+### Code Refactoring
+#### [MODIFY] [daily_fetch.py](file:///Users/linchuan/.gemini/antigravity/brain/4838b3fe-93ca-44a3-ba32-d37f4b912c9b/daily_fetch.py)
+- Change absolute paths (`/Users/linchuan/...`) to relative paths (`./images`) so the script runs on both Mac and GitHub's servers.
+
+### New Configuration
+#### [NEW] [.github/workflows/daily_fetch.yml](file:///Users/linchuan/.gemini/antigravity/brain/4838b3fe-93ca-44a3-ba32-d37f4b912c9b/.github/workflows/daily_fetch.yml)
+- A YAML configuration for GitHub Actions.
+- Schedule: `cron: '0 2 * * *'` (2:00 UTC = 10:00 AM China Standard Time).
+- Steps: Checkout code, install python/requests, run script, commit and push changes.
+
+#### [NEW] [requirements.txt](file:///Users/linchuan/.gemini/antigravity/brain/4838b3fe-93ca-44a3-ba32-d37f4b912c9b/requirements.txt)
+- Dependencies file (just `requests`).
+
+#### [NEW] [CLOUD_SETUP.md](file:///Users/linchuan/.gemini/antigravity/brain/4838b3fe-93ca-44a3-ba32-d37f4b912c9b/CLOUD_SETUP.md)
+- Step-by-step guide for the user to push this code to GitHub and enable Pages.
+
+## Verification Plan
+### Automated Tests
+- Run refactored `daily_fetch.py` locally to ensure relative paths work.
